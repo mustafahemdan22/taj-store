@@ -18,7 +18,7 @@ const clerk = clerkMiddleware(async (auth, req) => {
   }
 });
 
-export default function middleware(req: NextRequest, event: NextFetchEvent) {
+export default function proxy(req: NextRequest, event: NextFetchEvent) {
   // Production-safe: during builds/misconfig, don't hard-fail.
   if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
     return NextResponse.next();
