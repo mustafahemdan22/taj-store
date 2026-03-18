@@ -10,7 +10,9 @@ import { OrderProvider } from "@/contexts/OrderProvider";
 import { Toaster } from "sonner";
 import { store } from "@/store";
 import { ClerkProvider } from "@clerk/nextjs";
+
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+const clerkPubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 if (!convexUrl) {
   if (typeof window !== "undefined") {
@@ -22,9 +24,21 @@ const convex = new ConvexReactClient(
   convexUrl || "https://merry-platypus-481.convex.cloud"    
 );
 
+function MaybeClerkProvider({ children }: { children: React.ReactNode }) {
+  if (!clerkPubKey) {
+    // Clerk key not available — render without auth (graceful degradation)
+    return <>{children}</>;
+  }
+  return (
+    <ClerkProvider publishableKey={clerkPubKey}>
+      {children}
+    </ClerkProvider>
+  );
+}
+
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider>
+    <MaybeClerkProvider>
       <ConvexProvider client={convex}>
         <Provider store={store}>
           <ThemeProvider>
@@ -41,6 +55,6 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
           </ThemeProvider>
         </Provider>
       </ConvexProvider>
-    </ClerkProvider>
+    </MaybeClerkProvider>
   );
-}
+}

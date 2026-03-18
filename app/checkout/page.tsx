@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { useOrders } from '../../contexts/OrderProvider';
-import { useUser } from '@clerk/nextjs';
+import { useSafeUser } from '@/hooks/useClerkUser';
 import { useLanguage } from '../../contexts/LanguageProvider';
 import { clearCart } from '../../store/cartSlice';
 import { FiCreditCard, FiMapPin, FiUser, FiArrowLeft, FiCheckCircle, FiShoppingCart } from 'react-icons/fi';
@@ -17,7 +17,7 @@ const CheckoutPage = () => {
   const dispatch = useAppDispatch();
   const { items, total, itemCount } = useAppSelector((state) => state.cart);
   const { addOrder } = useOrders();
-  const { user, isLoaded, isSignedIn } = useUser();
+  const { user, isLoaded, isSignedIn } = useSafeUser();
   const { language } = useLanguage();
   
   const [isProcessing, setIsProcessing] = useState(false);

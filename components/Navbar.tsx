@@ -11,11 +11,6 @@ import {
   FiSun, 
   FiMoon,
   FiGlobe,
-  FiHome,
-  FiInfo,
-  FiBookOpen,
-  FiMail,
-  FiGrid,
   FiLogIn,
   FiUserPlus,
   FiHeart,
@@ -29,7 +24,8 @@ import { useAppSelector } from '../hooks/redux';
 import { useTheme } from '../contexts/ThemeProvider';
 import { useLanguage } from '../contexts/LanguageProvider';
 import { useWishlist } from '../contexts/WishlistProvider';
-import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
+import { SafeSignedIn, SafeSignedOut, SafeUserButton } from '@/hooks/useClerkSafe';
+import { useSafeUser } from '@/hooks/useClerkUser';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,7 +34,7 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage, isRTL } = useLanguage();
   const { wishlist } = useWishlist();
-  const { user } = useUser();
+  const { user } = useSafeUser();
   const cartItems = useAppSelector((state) => state.cart.items || []);
   const itemCount = cartItems.reduce((total, item) => total + (item.quantity || 0), 0);
 
@@ -55,11 +51,12 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { href: '/', icon: FiHome, text: language === 'ar' ? 'الرئيسية' : 'Home' },
-    { href: '/about', icon: FiInfo, text: language === 'ar' ? 'من نحن' : 'About' },
-    { href: '/blog', icon: FiBookOpen, text: language === 'ar' ? 'المدونة' : 'Blog' },
-    { href: '/contact', icon: FiMail, text: language === 'ar' ? 'اتصل بنا' : 'Contact' },
-    { href: '/categories', icon: FiGrid, text: language === 'ar' ? ' الفئات' : 'Categories' },
+    { href: '/', text: language === 'ar' ? 'الرئيسية' : 'Home' },
+    { href: '/about', text: language === 'ar' ? 'من نحن' : 'About' },
+    { href: '/blog', text: language === 'ar' ? 'المدونة' : 'Blog' },
+
+    { href: '/contact', text: language === 'ar' ? 'اتصل بنا' : 'Contact' },
+    { href: '/categories', text: language === 'ar' ? ' الفئات' : 'Categories' },
   ];
 
   const authItems = [
@@ -70,7 +67,7 @@ const Navbar = () => {
   const renderCartLink = () => (
     <Link
       href="/cart"
-      className="relative p-2 rounded-lg bg-zinc-200 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-300 dark:hover:bg-zinc-800 transition-colors duration-200"
+      className="relative p-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-300 dark:hover:bg-zinc-800 transition-colors duration-200"
     >
       <FiShoppingCart className="w-5 h-5" />
       {isMounted && itemCount > 0 && (
@@ -109,7 +106,6 @@ const Navbar = () => {
               aria-label={link.label}
               className="group hover:text-white/80 transition-colors p-4 -m-1 rounded-full"
             >
-              <link.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-125" />
             </Link>
           ))}
         </div>
@@ -142,14 +138,14 @@ const Navbar = () => {
                   <span>{item.text}</span>
                 </Link>
               ))}
-              <SignedIn>
+              <SafeSignedIn>
                 <Link
                   href="/orders"
                   className={`${style.navLink} flex items-center space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-300 hover:text-zinc-900 dark:hover:text-white font-sans font-medium transition-colors duration-200`}
                 >
                   <span>{language === 'ar' ? 'طلباتي' : 'My Orders'}</span>
                 </Link>
-              </SignedIn>
+              </SafeSignedIn>
             </div>
 
             {/* Desktop Actions */}
@@ -162,29 +158,29 @@ const Navbar = () => {
               <button onClick={toggleTheme} title={theme === 'light' ? (language === 'ar' ? 'الوضع الليلي' : 'Dark Mode') : (language === 'ar' ? 'الوضع النهاري' : 'Light Mode')} className="p-2 rounded-lg  text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
                 {theme === 'light' ? <FiMoon className="w-5 h-5" /> : <FiSun className="w-5 h-5" />}
               </button>
-              <Link href="/wishlist" className="relative p-2 rounded-full bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300">
+              <Link href="/wishlist" className="relative p-2 rounded-full text-pink-700 ">
                 <FiHeart className="w-5 h-5" />
-                {isMounted && wishlist.length > 0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{wishlist.length}</span>}
+                {isMounted && wishlist.length > 0 && <span className="absolute -top-1 -right-1  text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{wishlist.length}</span>}
               </Link>
               {/* Cart */}
               {renderCartLink()}
               
               {/* Auth */}
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                <SignedIn>
+                <SafeSignedIn>
                   <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">
                     {language === 'ar' ? `مرحباً، ${user?.firstName}` : `Hi, ${user?.firstName}`}
                   </div>
-                  <UserButton afterSignOutUrl="/" />
-                </SignedIn>
-                <SignedOut>
+                  <SafeUserButton afterSignOutUrl="/" />
+                </SafeSignedIn>
+                <SafeSignedOut>
                   {authItems.map(item => (
                     <Link key={item.href} href={item.href} className="flex items-center space-x-1 rtl:space-x-reverse px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
                       <item.icon className="w-4 h-4" />
                       <span className="text-sm">{item.text}</span>
                     </Link>
                   ))}
-                </SignedOut>
+                </SafeSignedOut>
               </div>
             </div>
 
@@ -196,12 +192,12 @@ const Navbar = () => {
               <button onClick={toggleTheme} title={theme === 'light' ? (language === 'ar' ? 'الوضع الليلي' : 'Dark Mode') : (language === 'ar' ? 'الوضع النهاري' : 'Light Mode')} className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
                 {theme === 'light' ? <FiMoon className="w-5 h-5" /> : <FiSun className="w-5 h-5" />}
               </button>
-              <Link href="/wishlist" className="relative p-2 rounded-lg bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300">
+              <Link href="/wishlist" className="relative p-2 rounded-lg text-pink-700 ">
                 <FiHeart className="w-5 h-5" />
-                {isMounted && wishlist.length > 0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{wishlist.length}</span>}
+                {isMounted && wishlist.length > 0 && <span className="absolute -top-1 -right-1 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{wishlist.length}</span>}
               </Link>
               {renderCartLink()}
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-lg  text-gray-700 ">
                 {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
               </button>
             </div>
@@ -213,36 +209,35 @@ const Navbar = () => {
               <div className="py-4 space-y-2">
                 {navItems.map(item => (
                   <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-2 rtl:space-x-reverse px-4 py-2 text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
-                    <item.icon className="w-4 h-4" />
                     <span>{item.text}</span>
                   </Link>
                 ))}
                 
-                <SignedIn>
+                <SafeSignedIn>
                   <Link href="/orders" onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-2 rtl:space-x-reverse px-4 py-2 text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
                     <FiPackage className="w-4 h-4" />
                     <span>{language === 'ar' ? 'طلباتي' : 'My Orders'}</span>
                   </Link>
-                </SignedIn>
+                </SafeSignedIn>
 
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-2">
-                  <SignedIn>
+                  <SafeSignedIn>
                     <div className="px-4 py-2 flex items-center space-x-4 rtl:space-x-reverse">
-                      <UserButton afterSignOutUrl="/" />
+                      <SafeUserButton afterSignOutUrl="/" />
                       <div className="text-sm text-gray-700 dark:text-gray-300 text-left">
                         {language === 'ar' ? `مرحباً، ${user?.firstName}` : `Hi, ${user?.firstName}`}
                       </div>
                     </div>
-                  </SignedIn>
+                  </SafeSignedIn>
                   
-                  <SignedOut>
+                  <SafeSignedOut>
                     {authItems.map(item => (
                       <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-2 rtl:space-x-reverse px-4 py-2 text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
                         <item.icon className="w-4 h-4" />
                         <span>{item.text}</span>
                       </Link>
                     ))}
-                  </SignedOut>
+                  </SafeSignedOut>
                 </div>
               </div>
             </motion.div>

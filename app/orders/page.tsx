@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useOrders } from '../../contexts/OrderProvider';
 import { useLanguage } from '../../contexts/LanguageProvider';
-import { useUser } from '@clerk/nextjs';
+import { useSafeUser } from '@/hooks/useClerkUser';
 import { FiPackage, FiTruck, FiCheckCircle, FiClock, FiXCircle, FiEye, FiCalendar, FiShoppingCart } from 'react-icons/fi';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -11,7 +11,7 @@ import { useState } from 'react';
 const OrderHistoryPage = () => {
   const { orders } = useOrders();
   const { language } = useLanguage();
-  const { user, isLoaded, isSignedIn } = useUser();
+  const { user, isLoaded, isSignedIn } = useSafeUser();
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
   if (!isLoaded) {
