@@ -9,6 +9,7 @@ import { WishlistProvider } from "@/contexts/WishlistProvider";
 import { OrderProvider } from "@/contexts/OrderProvider";
 import { Toaster } from "sonner";
 import { store } from "@/store";
+import { ClerkProvider } from "@clerk/nextjs";
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
 
 if (!convexUrl) {
@@ -23,21 +24,23 @@ const convex = new ConvexReactClient(
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <ConvexProvider client={convex}>
-      <Provider store={store}>
-        <ThemeProvider>
-          <LanguageProvider>
-            <WishlistProvider>
-              <OrderProvider>
-                <ReviewProvider>
-                  {children}
-                  <Toaster position="top-center" />
-                </ReviewProvider>
-              </OrderProvider>
-            </WishlistProvider>
-          </LanguageProvider>
-        </ThemeProvider>
-      </Provider>
-    </ConvexProvider>
+    <ClerkProvider>
+      <ConvexProvider client={convex}>
+        <Provider store={store}>
+          <ThemeProvider>
+            <LanguageProvider>
+              <WishlistProvider>
+                <OrderProvider>
+                  <ReviewProvider>
+                    {children}
+                    <Toaster position="top-center" />
+                  </ReviewProvider>
+                </OrderProvider>
+              </WishlistProvider>
+            </LanguageProvider>
+          </ThemeProvider>
+        </Provider>
+      </ConvexProvider>
+    </ClerkProvider>
   );
 }
