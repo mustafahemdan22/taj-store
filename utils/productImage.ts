@@ -1,8 +1,7 @@
 import { Product } from "../types/index";
 
-const CLOUDINARY_CLOUD_NAME =
-  process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dfq1xxerr";
- 
+const CLOUDINARY_CLOUD_NAME = "dfq1xxerr"
+
 
 
 /**
@@ -24,22 +23,21 @@ export function getOptimizedCloudinaryUrl(
   }
 
   // Architecture guard: we expect only public_id values here.
-  // If a full URL slips through, log it and return as‑is so it is visible in the console.
+  // If a full URL slips through, return as‑is.
   if (publicId.startsWith("http")) {
-    console.warn(
-      "[AUDIT] Expected Cloudinary public_id but received full URL. Verify Convex stores only public_id.",
-      publicId
-    );
+    // If it's a known broken OIP_11 URL, return empty to trigger fallback UI
+    if (publicId.includes("OIP_")) return "";
     return publicId;
   }
 
   const cleanId = publicId.startsWith("/") ? publicId.slice(1) : publicId;
-  const finalUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_${width}/${cleanId}`;
-
-  console.log("[AUDIT] Cloudinary public_id:", publicId);
-  console.log("[AUDIT] Generated Cloudinary URL:", finalUrl);
-
-  return finalUrl;
+  
+  // Guard against convex seed dummy placeholder images causing 404 errors
+  if (cleanId.includes("placeholder-") || cleanId.includes("OIP_")) {
+    return "";
+  }
+  
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_${width}/${cleanId}`;
 }
 
 /**
@@ -52,7 +50,6 @@ export function getProductImageUrl(product: Product): string {
 
   if (!raw) return "";
 
-  console.log("[AUDIT] product.images[0]:", raw);
   return getOptimizedCloudinaryUrl(raw);
 }
 

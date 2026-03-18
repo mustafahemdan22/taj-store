@@ -106,7 +106,7 @@ export default function UploadPage() {
       // We are opting to save public_id for dynamic transformations
       await updateProductImage({
         productId: selectedProductId as Id<"products">,
-        images: publicIds[0],    // All public_ids
+        images: publicIds,
       });
 
       toast.success("Images uploaded and saved successfully!", { id: toastId });

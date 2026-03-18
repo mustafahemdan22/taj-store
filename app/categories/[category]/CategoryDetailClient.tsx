@@ -29,12 +29,15 @@ export default function CategoryDetailClient({
   const categoryName = useMemo(() => {
     return language === "ar" ? category.name : category.nameEn;
   }, [category.name, category.nameEn, language]);
-
-  const heroUrl = useMemo(
-    () => getOptimizedCloudinaryUrl(category.heroImagePublicId, 1200),
-    [category.heroImagePublicId]
-  );
-
+const heroUrl = useMemo(() => {
+    // 1. لو المسار موجود في قاعدة البيانات، ابعته للدالة
+    if (category?.heroImagePublicId) {
+      return getOptimizedCloudinaryUrl(category.heroImagePublicId, 1200);
+    }
+    // 2. لو مفيش مسار، رجع أي صورة بديلة عندك في مجلد public
+    // (تقدر تغير /placeholder.jpg لأي صورة موجودة عندك فعلاً)
+    return "/placeholder.jpg"; 
+  }, [category?.heroImagePublicId]);
   return (
     <div
       className="min-h-screen bg-[#D1D5DC] dark:bg-gray-900 py-12"
@@ -48,7 +51,7 @@ export default function CategoryDetailClient({
           className="relative h-[300px] md:h-[400px] w-full rounded-3xl overflow-hidden mb-12 shadow-2xl group"
         >
           <Image
-            src={heroUrl}
+            src={heroUrl as string}
             alt={categoryName}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"

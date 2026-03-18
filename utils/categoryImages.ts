@@ -15,7 +15,7 @@ export const categoriesImages: Record<string, CategoryAssets> = {
     acrylic: { header: "taj-scarf/categories/acrylic/header" },
     infinity: { header: "taj-scarf/categories/infinity/header" },
     chiffon: { header: "taj-scarf/categories/chiffon/header" },
-    viscose: { header: "taj-scarf/categories/viscose/header" }, 
+    viscose: { header: "taj-scarf/categories/viscose/header" },
 };
 
 /**
@@ -26,7 +26,7 @@ export function getCategoryAssets(slug: string): CategoryAssets {
     const normalizedSlug = slug.toLowerCase();
 
     const result = categoriesImages[normalizedSlug] || {
-        header: "taj-scarf/static/all",
+        header: "taj-scarf/categories/all",
 
 
     };

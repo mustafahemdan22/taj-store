@@ -6,12 +6,23 @@ import { FiShoppingBag, FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import { useLanguage } from "../contexts/LanguageProvider";
 import style from "./HeroSection.module.css";
 import { useRef } from "react";
+import { getOptimizedCloudinaryUrl } from "@/utils/productImage";
+
+const HERO_PUBLIC_ID = "taj-scarf/other/hero";
+
 const HeroSection = () => {
   const { language, isRTL } = useLanguage();
   const ref = useRef(null);
+  const heroImageUrl = getOptimizedCloudinaryUrl(HERO_PUBLIC_ID, 1920);
 
   return (
-    <section ref={ref} className={style.hero}>
+    <section
+      ref={ref}
+      className={style.hero}
+ style={{
+    backgroundImage: `url("https://res.cloudinary.com/dfq1xxerr/image/upload/v1773467746/hero.jpg")`,
+  }}    >
+      
       <div className={style.lear}>
 
       <div className={`${style.heroContent} relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`}>

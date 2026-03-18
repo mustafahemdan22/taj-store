@@ -14,9 +14,10 @@ type Category = {
 export default async function CategoryDetailPage({
   params,
 }: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }) {
-  const slug = (params.category || "").toLowerCase();
+  const { category } = await params;
+  const slug = (category || "").toLowerCase();
   if (!slug) return notFound();
 
   const client = convexServerClient();

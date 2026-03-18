@@ -15,7 +15,7 @@ const BlogPage = () => {
       excerpt: language === 'ar'
         ? 'تعلمي كيف تجعلين وشاحك جزءًا أنيقًا ومميزًا من كل إطلالة يومية مع taj_scarf.'
         : 'Learn how to make your scarf an elegant and standout part of every daily outfit with taj_scarf.',
-      image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210601/taj-scarf/static/Black-Crepe-Shayla-Hijab-600x600.jpg",
+      image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772786069/taj-scarf/blog/3.jpg",
       href: '/blog/smart-shopping'
     },
     {
@@ -24,8 +24,8 @@ const BlogPage = () => {
       excerpt: language === 'ar'
         ? 'استكشف الفرق بين الحرير والكشمير والباشمينا واختر الأنسب من مجموعتنا الراقية.'
         : 'Discover the difference between silk, cashmere, and pashmina, and choose the perfect one from our premium collection.',
-      image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210603/taj-scarf/static/OIP_10.jpg",
-      href: '/blog/fresh-produce'
+      image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772786069/taj-scarf/blog/3.jpg",
+      href: '/blog/produce'
     },
     {
       id: 3,
@@ -33,8 +33,8 @@ const BlogPage = () => {
       excerpt: language === 'ar'
         ? 'تعلمي أفضل طرق العناية بأوشحتك للحفاظ على نعومتها وجودتها لسنوات طويلة مع taj_scarf.'
         : 'Learn the best ways to care for your scarves and maintain their softness and quality for years with taj_scarf.',
-      image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210603/taj-scarf/static/OIP_11.jpg",
-      href: '/blog/food-storage'
+      image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772786069/taj-scarf/blog/3.jpg",
+      href: '/blog/storage'
     }
   ];
 

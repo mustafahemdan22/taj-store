@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useReviews } from '../contexts/ReviewProvider';
-import { useAuth } from '../contexts/AuthProvider';
+import { useUser } from '@clerk/nextjs';
 import { useLanguage } from '../contexts/LanguageProvider';
 import { FiStar, FiThumbsUp, FiEdit3, FiUser } from 'react-icons/fi';
 import toast from 'react-hot-toast';
@@ -14,7 +14,7 @@ interface ProductReviewsProps {
 
 const ProductReviews = ({ productId }: ProductReviewsProps) => {
   const {  addReview, getReviewsByProduct, getAverageRating, getRatingDistribution, markHelpful } = useReviews();
-  const { user } = useAuth();
+  const { user } = useUser();
   const { language } = useLanguage();
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [reviewForm, setReviewForm] = useState({

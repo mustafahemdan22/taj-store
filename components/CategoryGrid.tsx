@@ -1,44 +1,36 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
 import { useLanguage } from "../contexts/LanguageProvider";
 import { getOptimizedCloudinaryUrl } from "@/utils/productImage";
+import { CATEGORIES, categoryHeroImages } from "../convex/constants";
+import { motion, Variants } from "framer-motion";
 
-type Category = {
-  _id: string;
-  slug: string;
-  name: string;
-  nameEn: string;
-  heroImagePublicId: string;
+// ✅ قاموس ترجمة الأقسام (عشان الموقع يكون احترافي باللغتين)
+const categoryTranslations: Record<string, { en: string; ar: string }> = {
+  cashmere: { en: "Cashmere", ar: "كشمير" },
+  silk: { en: "Silk", ar: "حرير" },
+  wool: { en: "Wool", ar: "صوف" },
+  pashmina: { en: "Pashmina", ar: "باشمينا" },
+  cotton: { en: "Cotton", ar: "قطن" },
+  acrylic: { en: "Acrylic", ar: "أكريليك" },
+  infinity: { en: "Infinity", ar: "إنفينيتي" },
+  viscose: { en: "Viscose", ar: "فيسكوز" },
 };
 
-const CategoryGrid = () => {
+const CategoryGridStatic = () => {
   const { language } = useLanguage();
-  const categories = useQuery(api.functions.categories.listCategories, {});
+  const isArabic = language === "ar";
 
-  const containerVariants = {
+ const containerVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5
-      }
-    }
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }, 
   };
 
   return (
@@ -46,39 +38,65 @@ const CategoryGrid = () => {
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 "
+      viewport={{ once: true, margin: "-50px" }}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-0"
     >
-      {(categories || []).map((category: Category) => {
-        const name = language === "ar" ? category.name : category.nameEn;
+      {CATEGORIES.map((slug) => {
+        // جلب الاسم باللغة المناسبة، ولو مش موجود في القاموس نعرض الـ slug كبديل
+        const translation = categoryTranslations[slug];
+        const name = isArabic ? (translation?.ar || slug) : (translation?.en || slug);
+
+        const heroPublicId = categoryHeroImages[slug];
+        const imageUrl = heroPublicId ? getOptimizedCloudinaryUrl(heroPublicId, 1200) : "";
+
         return (
           <motion.div
-            key={category._id}
+            key={slug}
             variants={itemVariants}
-            whileHover={{ y: -5, scale: 1.02 }}
+            whileHover={{ y: -8 }}
             whileTap={{ scale: 0.98 }}
-            className="group relative aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-xl transition-all duration-500"
+            // خلينا الكارت أطول شوية aspect-[3/4] بيدي شكل فخم جداً لصور الفاشون
+            className="group relative aspect-[4/5] md:aspect-[5/6] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-black/40 transition-all duration-500 bg-neutral-100 border border-black/5"
           >
-            <Link href={`/categories/${category.slug}`}>
-              <div className="absolute inset-0">
-                <Image
-                  src={getOptimizedCloudinaryUrl(category.heroImagePublicId, 1200)}
-                  alt={name}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+            <Link href={`/categories/${slug}`} className="block w-full h-full">
+              <div className="relative w-full h-full overflow-hidden">
                 
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <h3 className="text-xl md:text-2xl font-black text-white text-center transform group-hover:scale-105 transition-transform duration-300">
-                    {name}
-                  </h3>
-                  <motion.div 
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    className="h-1 bg-white mt-2 rounded-full mx-auto max-w-[40px] origin-center transition-transform duration-300"
+                {/* 1. الصورة مع تأثير الـ Blur قبل التحميل */}
+                {imageUrl && (
+                  <Image
+                    src={imageUrl}
+                    alt={name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+                    placeholder="blur"
+                    // Blur Data URL لون رمادي خفيف جداً
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" 
                   />
+                )}
+
+                {/* 2. التدرج اللوني (Overlay) - تم تحسينه ليكون أغمق من تحت ويدرج بنعومة لفوق */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500" />
+
+                {/* 3. المحتوى النصي - بيتحرك لفوق شوية مع الهوفر */}
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col items-center justify-end h-full">
+                  <motion.div
+                    className="flex flex-col items-center translate-y-6 group-hover:translate-y-0 transition-transform duration-500 ease-out"
+                  >
+                    <h3 className={`text-2xl md:text-3xl font-bold text-white text-center tracking-wide drop-shadow-lg capitalize ${isArabic ? 'font-arabic' : ''}`}>
+                      {name}
+                    </h3>
+                    
+                    {/* خط سفلي بيظهر بـ Animation مع الهوفر */}
+                    <div className="h-[2px] bg-white/80 mt-3 w-0 group-hover:w-12 transition-all duration-500 ease-out rounded-full" />
+                    
+                    {/* كلمة "تسوق الآن" بتظهر بنعومة تحت الخط */}
+                    <span className="text-white/90 text-sm font-medium mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-75 uppercase tracking-widest">
+                      {isArabic ? "تسوق الآن" : "Shop Now"}
+                    </span>
+                  </motion.div>
                 </div>
+
               </div>
             </Link>
           </motion.div>
@@ -88,4 +106,4 @@ const CategoryGrid = () => {
   );
 };
 
-export default CategoryGrid;
+export default CategoryGridStatic;

@@ -88,7 +88,7 @@ whileHover={{ boxShadow: "0 0 25px rgba(161,161,170,0.5)" }}
             </div>
             <div className="relative  h-80 w-full ">
              <Image 
-  src="https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210603/taj-scarf/static/OIP_11.jpg" 
+  src="https://res.cloudinary.com/dfq1xxerr/image/upload/v1773724121/about_c0qoki.jpg" 
   alt="Taj Scarf" 
   fill 
   className="object-center object-cover rounded-br-full"

@@ -61,3 +61,35 @@ export const deleteCategoryBySlug = mutation({
   },
 });
 
+export const seedCategories = mutation({
+  args: {},
+  handler: async (ctx) => {
+    // Clear existing categories to ensure fresh start with correct paths
+    const existingCats = await ctx.db.query("categories").collect();
+    for (const cat of existingCats) {
+      await ctx.db.delete(cat._id);
+    }
+
+    let count = 0;
+
+
+    const categoriesToSeed = [
+      { slug: 'cashmere', name: 'كشمير', nameEn: 'Cashmere', heroImagePublicId: 'taj-scarf/categories/cashmere/header', sortOrder: 1 },
+      { slug: 'silk', name: 'حرير', nameEn: 'Silk', heroImagePublicId: 'taj-scarf/categories/silk/header', sortOrder: 2 },
+      { slug: 'wool', name: 'صوف', nameEn: 'Wool', heroImagePublicId: 'taj-scarf/categories/wool/header', sortOrder: 3 },
+      { slug: 'pashmina', name: 'باشمينا', nameEn: 'Pashmina', heroImagePublicId: 'taj-scarf/categories/pashmina/header', sortOrder: 4 },
+      { slug: 'cotton', name: 'قطن', nameEn: 'Cotton', heroImagePublicId: 'taj-scarf/categories/cotton/header', sortOrder: 5 },
+      { slug: 'acrylic', name: 'أكريليك', nameEn: 'Acrylic', heroImagePublicId: 'taj-scarf/categories/acrylic/header', sortOrder: 6 },
+      { slug: 'infinity', name: 'إنفينيتي', nameEn: 'Infinity', heroImagePublicId: 'taj-scarf/categories/infinity/header', sortOrder: 7 },
+      { slug: 'chiffon', name: 'شيفون', nameEn: 'Chiffon', heroImagePublicId: 'taj-scarf/categories/chiffon/header', sortOrder: 8 },
+      { slug: 'viscose', name: 'فيسكوز', nameEn: 'Viscose', heroImagePublicId: 'taj-scarf/categories/viscose/header', sortOrder: 9 },
+    ];
+
+    for (const cat of categoriesToSeed) {
+      await ctx.db.insert("categories", cat);
+      count++;
+    }
+
+    return `Successfully seeded ${count} categories!`;
+  },
+});

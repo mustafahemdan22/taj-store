@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { useOrders } from '../../contexts/OrderProvider';
-import { useAuth } from '../../contexts/AuthProvider';
+import { useUser } from '@clerk/nextjs';
 import { useLanguage } from '../../contexts/LanguageProvider';
 import { clearCart } from '../../store/cartSlice';
 import { FiCreditCard, FiMapPin, FiUser, FiArrowLeft, FiCheckCircle, FiShoppingCart } from 'react-icons/fi';
@@ -17,15 +17,15 @@ const CheckoutPage = () => {
   const dispatch = useAppDispatch();
   const { items, total, itemCount } = useAppSelector((state) => state.cart);
   const { addOrder } = useOrders();
-  const { user } = useAuth();
+  const { user, isLoaded, isSignedIn } = useUser();
   const { language } = useLanguage();
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
-    email: user?.email || '',
-    phone: user?.phone || '',
+    email: user?.emailAddresses?.[0]?.emailAddress || '',
+    phone: user?.phoneNumbers?.[0]?.phoneNumber || '',
     street: '',
     city: '',
     state: '',
@@ -45,7 +45,7 @@ const CheckoutPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!user) {
+    if (!isSignedIn) {
       toast.error(language === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please login first');
       router.push('/login');
       return;
@@ -101,7 +101,15 @@ const CheckoutPage = () => {
     }
   };
 
-  if (!user) {
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#EEEFF1] dark:bg-gray-900">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-zinc-800"></div>
+      </div>
+    );
+  }
+
+  if (!isSignedIn) {
     return (
       <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">

@@ -7,6 +7,7 @@ import { useState,  useMemo, useCallback } from "react";
 import { FiSearch, FiChevronLeft, FiChevronRight, FiFilter, FiX, FiGrid, FiList } from "react-icons/fi";
 import { useQuery } from "convex/react"; // ✅ FIXED: Import useQuery
 import { api } from "@/convex/_generated/api";
+import type { Doc } from "@/convex/_generated/dataModel";
 import { Product } from "@/types";
 import CategoryGrid from "@/components/CategoryGrid";
 
@@ -112,10 +113,10 @@ const CategoriesPage = () => {
 
   // Dynamic categories from Convex
   const categoriesList = useMemo(() => {
-    return (categories || []).map((c: any) => ({
-      id: c.slug as string,
+    return (categories || []).map((c: Doc<"categories">) => ({
+      id: c.slug,
       name: language === "ar" ? c.name : c.nameEn,
-      nameEn: c.slug as string,
+      nameEn: c.nameEn,
     }));
   }, [categories, language]);
 
@@ -147,10 +148,10 @@ const CategoriesPage = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentProducts = filteredProducts.slice(startIndex, endIndex);
 
-  const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  // const handlePageChange = useCallback((page: number) => {
+  //   setCurrentPage(page);
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // }, []);
 
   const handleCategoryChange = useCallback((categoryId: string) => {
     setSelectedCategory(categoryId);

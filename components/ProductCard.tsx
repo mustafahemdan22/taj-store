@@ -21,6 +21,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const dispatch = useAppDispatch();
   const { language } = useLanguage();
   const { isInWishlist, toggleWishlist } = useWishlist();
+  
+  // الحالة دي هي اللي هتنقذنا لو الصورة مش موجودة
   const [imageError, setImageError] = useState(false);
 
   const productName = (language === 'ar' ? product.name : product.nameEn) || 'Product';
@@ -29,12 +31,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const isWishlisted = isInWishlist(productId);
 
   const resolvedImage = getProductImageUrl(product);
-  
-  if (product.category === 'viscose') {
-    console.log(`[AUDIT] Product: ${product.nameEn} (${product._id})`);
-    console.log(`[AUDIT] Raw images array:`, product.images);
-    console.log(`[AUDIT] Resolved Image URL: ${resolvedImage}`);
-  }
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -83,10 +79,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              onError={() => setImageError(true)}
+              onError={() => setImageError(true)} // لما الصورة تفشل، المتغير ده هيبقى true
               loading="lazy"
             />
           ) : (
+            // الـ div ده هيظهر مكان المنتجات الوهمية اللي ملهاش صور
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl m-2">
               <span className="text-gray-400 dark:text-gray-600 font-bold text-xs uppercase tracking-tighter">
                 Image Coming Soon
@@ -147,11 +144,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
         {/* Product Info */}
         <div className="p-4">
-          {/* Brand */}
-          {/* <p className="text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide font-medium">
-            {product.brand}
-          </p> */}
-
           {/* Product Name & Subtitle */}
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-2 min-h-[1.5rem] group-hover:text-zinc-600 dark:group-hover:text-zinc-400 transition-colors">
             {productName}

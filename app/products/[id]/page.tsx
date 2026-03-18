@@ -246,14 +246,22 @@ const ProductDetailPage = () => {
           >
             {/* Main Image */}
             <div className="aspect-square bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden relative group border border-gray-100 dark:border-gray-800">
-              <Image
-                src={productImage}
-                alt={productName}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                priority
-              />
+              {productImage ? (
+                <Image
+                  src={productImage}  
+                  alt={productName}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  priority
+                />
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-200 dark:border-gray-700 m-2 rounded-2xl">
+                  <span className="text-gray-400 dark:text-gray-500 font-semibold text-sm uppercase tracking-wider text-center px-4">
+                    Image Coming Soon
+                  </span>
+                </div>
+              )}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
               
               {/* Category Label */}

@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "@/contexts/ThemeProvider";
 import { LanguageProvider } from "@/contexts/LanguageProvider";
 import { ReviewProvider } from "@/contexts/ReviewProvider";
-import { AuthProvider } from "@/contexts/AuthProvider";
 import { WishlistProvider } from "@/contexts/WishlistProvider";
 import { OrderProvider } from "@/contexts/OrderProvider";
 import { Toaster } from "sonner";
@@ -36,16 +35,14 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         <Provider store={store}>
           <ThemeProvider>
             <LanguageProvider>
-              <AuthProvider>
-                <WishlistProvider>
-                  <OrderProvider>
-                    <ReviewProvider>
-                      {children}
-                      <Toaster position="top-center" />
-                    </ReviewProvider>
-                  </OrderProvider>
-                </WishlistProvider>
-              </AuthProvider>
+              <WishlistProvider>
+                <OrderProvider>
+                  <ReviewProvider>
+                    {children}
+                    <Toaster position="top-center" />
+                  </ReviewProvider>
+                </OrderProvider>
+              </WishlistProvider>
             </LanguageProvider>
           </ThemeProvider>
         </Provider>
@@ -59,16 +56,14 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         <Provider store={store}>
           <ThemeProvider>
             <LanguageProvider>
-              <AuthProvider>
-                <WishlistProvider>
-                  <OrderProvider>
-                    <ReviewProvider>
-                      {children}
-                      <Toaster position="top-center" />
-                    </ReviewProvider>
-                  </OrderProvider>
-                </WishlistProvider>
-              </AuthProvider>
+              <WishlistProvider>
+                <OrderProvider>
+                  <ReviewProvider>
+                    {children}
+                    <Toaster position="top-center" />
+                  </ReviewProvider>
+                </OrderProvider>
+              </WishlistProvider>
             </LanguageProvider>
           </ThemeProvider>
         </Provider>

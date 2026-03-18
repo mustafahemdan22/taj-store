@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useOrders } from '../../contexts/OrderProvider';
 import { useLanguage } from '../../contexts/LanguageProvider';
-import { useAuth } from '../../contexts/AuthProvider';
+import { useUser } from '@clerk/nextjs';
 import { FiPackage, FiTruck, FiCheckCircle, FiClock, FiXCircle, FiEye, FiCalendar, FiShoppingCart } from 'react-icons/fi';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -11,10 +11,18 @@ import { useState } from 'react';
 const OrderHistoryPage = () => {
   const { orders } = useOrders();
   const { language } = useLanguage();
-  const { user } = useAuth();
+  const { user, isLoaded, isSignedIn } = useUser();
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
-  if (!user) {
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#EEEFF1] dark:bg-gray-900">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-zinc-800"></div>
+      </div>
+    );
+  }
+
+  if (!isSignedIn) {
     return (
       <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">

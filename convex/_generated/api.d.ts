@@ -14,7 +14,9 @@ import type * as functions_createUser from "../functions/createUser.js";
 import type * as functions_loginUser from "../functions/loginUser.js";
 import type * as functions_products from "../functions/products.js";
 import type * as productData from "../productData.js";
+import type * as seed from "../seed.js";
 import type * as translations from "../translations.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
@@ -29,7 +31,9 @@ declare const fullApi: ApiFromModules<{
   "functions/loginUser": typeof functions_loginUser;
   "functions/products": typeof functions_products;
   productData: typeof productData;
+  seed: typeof seed;
   translations: typeof translations;
+  users: typeof users;
 }>;
 
 /**

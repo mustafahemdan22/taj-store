@@ -6,6 +6,7 @@ import { useLanguage } from '../contexts/LanguageProvider';
 import style from "./FeaturesSection.module.css"
 
 
+
 const FeaturesSection = () => {
   const { language } = useLanguage();
 
@@ -62,7 +63,16 @@ const FeaturesSection = () => {
   };
 
   return (
- <section className={style.features}>
+ <section
+   
+      className={style.features}
+ style={{
+    backgroundImage: `url("https://res.cloudinary.com/dfq1xxerr/image/upload/v1773467777/features.png")`,
+  }}  
+ >
+
+  
+  
       {/* Background Image */}
       <div className={style.lear}>
       
