@@ -169,7 +169,7 @@ const Navbar = () => {
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <SafeSignedIn>
                   <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">
-                    {language === 'ar' ? `مرحباً، ${user?.firstName}` : `Hi, ${user?.firstName}`}
+                  {language === 'ar' ? `مرحباً، ${user?.firstName}` : `Hi, ${user?.firstName}`}
                   </div>
                   <SafeUserButton afterSignOutUrl="/" />
                 </SafeSignedIn>
