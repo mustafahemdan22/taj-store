@@ -24,7 +24,7 @@ import { useAppSelector } from '../hooks/redux';
 import { useTheme } from '../contexts/ThemeProvider';
 import { useLanguage } from '../contexts/LanguageProvider';
 import { useWishlist } from '../contexts/WishlistProvider';
-import { SafeSignedIn, SafeSignedOut, SafeUserButton } from '@/hooks/useClerkSafe';
+import { SafeSignedIn, SafeSignedOut, SafeUserButton, SafeSignInButton, SafeSignUpButton } from '@/hooks/useClerkSafe';
 import { useSafeUser } from '@/hooks/useClerkUser';
 
 const Navbar = () => {
@@ -174,12 +174,18 @@ const Navbar = () => {
                   <SafeUserButton afterSignOutUrl="/" />
                 </SafeSignedIn>
                 <SafeSignedOut>
-                  {authItems.map(item => (
-                    <Link key={item.href} href={item.href} className="flex items-center space-x-1 rtl:space-x-reverse px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
-                      <item.icon className="w-4 h-4" />
-                      <span className="text-sm">{item.text}</span>
-                    </Link>
-                  ))}
+                  <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <SafeSignInButton mode="modal">
+                      <button className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200">
+                        {language === 'ar' ? 'تسجيل الدخول' : 'Sign In'}
+                      </button>
+                    </SafeSignInButton>
+                    <SafeSignUpButton mode="modal">
+                      <button className="px-4 py-2 text-sm font-medium bg-zinc-800 text-white rounded-lg hover:bg-zinc-900 transition-all duration-200 shadow-sm border border-zinc-700">
+                        {language === 'ar' ? 'إنشاء حساب' : 'Sign Up'}
+                      </button>
+                    </SafeSignUpButton>
+                  </div>
                 </SafeSignedOut>
               </div>
             </div>
@@ -231,12 +237,18 @@ const Navbar = () => {
                   </SafeSignedIn>
                   
                   <SafeSignedOut>
-                    {authItems.map(item => (
-                      <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-2 rtl:space-x-reverse px-4 py-2 text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
-                        <item.icon className="w-4 h-4" />
-                        <span>{item.text}</span>
-                      </Link>
-                    ))}
+                    <div className="flex flex-col space-y-2 px-4 py-2">
+                      <SafeSignInButton mode="modal">
+                        <button onClick={() => setIsMenuOpen(false)} className="w-full text-left rtl:text-right py-2 text-gray-700 dark:text-gray-300 font-medium">
+                          {language === 'ar' ? 'تسجيل الدخول' : 'Sign In'}
+                        </button>
+                      </SafeSignInButton>
+                      <SafeSignUpButton mode="modal">
+                        <button onClick={() => setIsMenuOpen(false)} className="w-full py-3 bg-zinc-800 text-white rounded-lg font-bold shadow-md">
+                          {language === 'ar' ? 'إنشاء حساب' : 'Sign Up'}
+                        </button>
+                      </SafeSignUpButton>
+                    </div>
                   </SafeSignedOut>
                 </div>
               </div>

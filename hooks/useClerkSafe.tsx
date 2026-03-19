@@ -25,9 +25,8 @@ export function SafeSignedIn({ children }: { children: React.ReactNode }) {
 
 function SignedOutInner({ children }: { children: React.ReactNode }) {
   const { isLoaded, isSignedIn } = useSafeUser();
-  // If Clerk is not loaded yet, we still show the buttons as a fallback
-  // instead of leaving the navbar empty. If it loads and user is signed in,
-  // this will then return null.
+  // We want to show sign-out content (like login buttons) even while loading
+  // to avoid a flickering or empty navbar, unless we are CERTAIN we are signed in.
   if (isLoaded && isSignedIn) return null;
   return <>{children}</>;
 }
@@ -39,9 +38,8 @@ export function SafeSignedOut({ children }: { children: React.ReactNode }) {
   return <SignedOutInner>{children}</SignedOutInner>;
 }
 
-function UserButtonInner(props: { afterSignOutUrl?: string }) {
+function UserButtonInner(props: any) {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { UserButton } = require("@clerk/nextjs");
     return <UserButton {...props} />;
   } catch {
@@ -49,7 +47,33 @@ function UserButtonInner(props: { afterSignOutUrl?: string }) {
   }
 }
 
-export function SafeUserButton(props: { afterSignOutUrl?: string }) {
+export function SafeUserButton(props: any) {
   if (!clerkAvailable) return null;
   return <UserButtonInner {...props} />;
+}
+
+function SignInButtonInner(props: any) {
+  try {
+    const { SignInButton } = require("@clerk/nextjs");
+    return <SignInButton {...props} />;
+  } catch {
+    return <button {...props}>{props.children || "Sign In"}</button>;
+  }
+}
+
+export function SafeSignInButton(props: any) {
+  return <SignInButtonInner {...props} />;
+}
+
+function SignUpButtonInner(props: any) {
+  try {
+    const { SignUpButton } = require("@clerk/nextjs");
+    return <SignUpButton {...props} />;
+  } catch {
+    return <button {...props}>{props.children || "Sign Up"}</button>;
+  }
+}
+
+export function SafeSignUpButton(props: any) {
+  return <SignUpButtonInner {...props} />;
 }
