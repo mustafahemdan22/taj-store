@@ -13,8 +13,8 @@ const clerkAvailable = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
  */
 
 function SignedInInner({ children }: { children: React.ReactNode }) {
-  const { isSignedIn } = useSafeUser();
-  if (!isSignedIn) return null;
+  const { isLoaded, isSignedIn } = useSafeUser();
+  if (!isLoaded || !isSignedIn) return null;
   return <>{children}</>;
 }
 
@@ -25,7 +25,10 @@ export function SafeSignedIn({ children }: { children: React.ReactNode }) {
 
 function SignedOutInner({ children }: { children: React.ReactNode }) {
   const { isLoaded, isSignedIn } = useSafeUser();
-  if (!isLoaded || isSignedIn) return null;
+  // If Clerk is not loaded yet, we still show the buttons as a fallback
+  // instead of leaving the navbar empty. If it loads and user is signed in,
+  // this will then return null.
+  if (isLoaded && isSignedIn) return null;
   return <>{children}</>;
 }
 
