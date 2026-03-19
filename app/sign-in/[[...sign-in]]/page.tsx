@@ -1,7 +1,7 @@
-"use client";
+
 
 import { SignIn } from "@clerk/nextjs";
-import { useLanguage } from "../../contexts/LanguageProvider";
+import { useLanguage } from "../../../contexts/LanguageProvider";
 
 export default function LoginPage() {
   const { language } = useLanguage();
@@ -18,9 +18,9 @@ export default function LoginPage() {
           {language === "ar" ? "مرحباً بك في تاج سكارف" : "Welcome to Taj Scarf"}
         </h2>
       </div>
-      
+
       {/* Clerk SignIn Component takes care of everything (Google, Email, Password, UI) */}
-      <SignIn routing="hash" />
+      <SignIn />
     </div>
   );
 }

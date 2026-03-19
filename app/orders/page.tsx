@@ -30,7 +30,7 @@ const OrderHistoryPage = () => {
             {language === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please login first'}
           </h1>
           <Link
-            href="/login"
+            href="/sign-in"
             className="inline-flex items-center px-6 py-3 bg-zinc-700 text-white font-semibold rounded-lg hover:bg-zinc-800 transition-colors duration-200"
           >
             {language === 'ar' ? 'تسجيل الدخول' : 'Login'}

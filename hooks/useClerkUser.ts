@@ -1,4 +1,4 @@
-"use client";
+
 
 import { useUser as useClerkUseUser } from "@clerk/nextjs";
 

@@ -60,8 +60,8 @@ const Navbar = () => {
   ];
 
   const authItems = [
-    { href: '/login', icon: FiLogIn, text: language === 'ar' ? 'تسجيل الدخول' : 'Login' },
-    { href: '/signup', icon: FiUserPlus, text: language === 'ar' ? 'إنشاء حساب' : 'Sign Up' },
+    { href: '/sign-in', icon: FiLogIn, text: language === 'ar' ? 'تسجيل الدخول' : 'Login' },
+    { href: '/sign-up', icon: FiUserPlus, text: language === 'ar' ? 'إنشاء حساب' : 'Sign Up' },
   ];
 
   const renderCartLink = () => (

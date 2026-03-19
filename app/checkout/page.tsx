@@ -1,4 +1,3 @@
-'use client';
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -46,8 +45,8 @@ const CheckoutPage = () => {
     e.preventDefault();
     
     if (!isSignedIn) {
-      toast.error(language === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please login first');
-      router.push('/login');
+      toast.error(language === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please sign in first');
+      router.push('/sign-in');
       return;
     }
 
@@ -114,13 +113,13 @@ const CheckoutPage = () => {
       <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            {language === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please login first'}
+            {language === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please sign in first'}
           </h1>
           <Link
-            href="/login"
+            href="/sign-in"
             className="inline-flex items-center px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-900 transition-colors duration-200"
           >
-            {language === 'ar' ? 'تسجيل الدخول' : 'Login'}
+            {language === 'ar' ? 'تسجيل الدخول' : 'sign in'}
           </Link>
         </div>
       </div>

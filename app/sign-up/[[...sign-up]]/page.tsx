@@ -1,8 +1,7 @@
-// src/app/signup/page.tsx
-"use client";
+// src/app/sign-up/[[...sign-up]]/page.tsx
 
 import { SignUp } from "@clerk/nextjs";
-import { useLanguage } from "../../contexts/LanguageProvider";
+import { useLanguage } from "../../../contexts/LanguageProvider"; // تأكد من عدد النقاط للرجوع للمجلد الصحيح
 
 export default function SignupPage() {
   const { language } = useLanguage();
@@ -20,8 +19,8 @@ export default function SignupPage() {
         </h2>
       </div>
 
-      {/* Clerk SignUp Component takes care of everything */}
-      <SignUp routing="hash" />
+      {/* أزلنا routing="hash" ليعتمد على المسارات التي وضعتها في الـ env */}
+      <SignUp />
     </div>
   );
 }
