@@ -138,6 +138,15 @@ const Navbar = () => {
                   <span>{item.text}</span>
                 </Link>
               ))}
+              {authItems.map(item => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`${style.navLink} flex items-center space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-300 hover:text-zinc-900 dark:hover:text-white font-sans font-medium transition-colors duration-200`}
+                >
+                  <span>{item.text}</span>
+                </Link>
+              ))  }
               <SafeSignedIn>
                 <Link
                   href="/orders"
