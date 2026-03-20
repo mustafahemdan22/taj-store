@@ -1,5 +1,7 @@
+'use client';
 
 import { useSafeUser } from "./useClerkUser";
+import type { ComponentProps, ReactNode } from "react";
 
 const clerkAvailable = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -12,33 +14,31 @@ const clerkAvailable = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
  * (which violates React's rules of hooks).
  */
 
-function SignedInInner({ children }: { children: React.ReactNode }) {
+function SignedInInner({ children }: { children: ReactNode }) {
   const { isLoaded, isSignedIn } = useSafeUser();
   if (!isLoaded || !isSignedIn) return null;
   return <>{children}</>;
 }
 
-export function SafeSignedIn({ children }: { children: React.ReactNode }) {
+export function SafeSignedIn({ children }: { children: ReactNode }) {
   if (!clerkAvailable) return null;
   return <SignedInInner>{children}</SignedInInner>;
 }
 
-function SignedOutInner({ children }: { children: React.ReactNode }) {
+function SignedOutInner({ children }: { children: ReactNode }) {
   const { isLoaded, isSignedIn } = useSafeUser();
-  // We want to show sign-out content (like login buttons) even while loading
-  // to avoid a flickering or empty navbar, unless we are CERTAIN we are signed in.
   if (isLoaded && isSignedIn) return null;
   return <>{children}</>;
 }
 
-export function SafeSignedOut({ children }: { children: React.ReactNode }) {
-  if (!clerkAvailable) {
-    return <>{children}</>;
-  }
+export function SafeSignedOut({ children }: { children: ReactNode }) {
+  if (!clerkAvailable) return <>{children}</>;
   return <SignedOutInner>{children}</SignedOutInner>;
 }
 
-function UserButtonInner(props: any) {
+// ---------------- Buttons ---------------- //
+
+function UserButtonInner(props: ComponentProps<any>) {
   try {
     const { UserButton } = require("@clerk/nextjs");
     return <UserButton {...props} />;
@@ -47,12 +47,12 @@ function UserButtonInner(props: any) {
   }
 }
 
-export function SafeUserButton(props: any) {
+export function SafeUserButton(props: ComponentProps<any>) {
   if (!clerkAvailable) return null;
   return <UserButtonInner {...props} />;
 }
 
-function SignInButtonInner(props: any) {
+function SignInButtonInner(props: ComponentProps<any>) {
   try {
     const { SignInButton } = require("@clerk/nextjs");
     return <SignInButton {...props} />;
@@ -61,11 +61,11 @@ function SignInButtonInner(props: any) {
   }
 }
 
-export function SafeSignInButton(props: any) {
+export function SafeSignInButton(props: ComponentProps<any>) {
   return <SignInButtonInner {...props} />;
 }
 
-function SignUpButtonInner(props: any) {
+function SignUpButtonInner(props: ComponentProps<any>) {
   try {
     const { SignUpButton } = require("@clerk/nextjs");
     return <SignUpButton {...props} />;
@@ -74,6 +74,6 @@ function SignUpButtonInner(props: any) {
   }
 }
 
-export function SafeSignUpButton(props: any) {
+export function SafeSignUpButton(props: ComponentProps<any>) {
   return <SignUpButtonInner {...props} />;
 }
