@@ -180,7 +180,7 @@ const Navbar = () => {
                   <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">
                   {language === 'ar' ? `مرحباً، ${user?.firstName}` : `Hi, ${user?.firstName}`}
                   </div>
-                  <SafeUserButton afterSignOutUrl="/" />
+                  <SafeUserButton />
                 </SafeSignedIn>
                 <SafeSignedOut>
                   <div className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -238,7 +238,7 @@ const Navbar = () => {
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-2">
                   <SafeSignedIn>
                     <div className="px-4 py-2 flex items-center space-x-4 rtl:space-x-reverse">
-                      <SafeUserButton afterSignOutUrl="/" />
+                      <SafeUserButton />
                       <div className="text-sm text-gray-700 dark:text-gray-300 text-left">
                         {language === 'ar' ? `مرحباً، ${user?.firstName}` : `Hi, ${user?.firstName}`}
                       </div>

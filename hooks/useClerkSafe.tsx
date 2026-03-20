@@ -38,42 +38,19 @@ export function SafeSignedOut({ children }: { children: ReactNode }) {
 
 // ---------------- Buttons ---------------- //
 
-function UserButtonInner(props: ComponentProps<any>) {
-  try {
-    const { UserButton } = require("@clerk/nextjs");
-    return <UserButton {...props} />;
-  } catch {
-    return null;
-  }
-}
+import { UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
 
-export function SafeUserButton(props: ComponentProps<any>) {
+export function SafeUserButton(props: ComponentProps<typeof UserButton>) {
   if (!clerkAvailable) return null;
-  return <UserButtonInner {...props} />;
+  return <UserButton {...props} />;
 }
 
-function SignInButtonInner(props: ComponentProps<any>) {
-  try {
-    const { SignInButton } = require("@clerk/nextjs");
-    return <SignInButton {...props} />;
-  } catch {
-    return <button {...props}>{props.children || "Sign In"}</button>;
-  }
+export function SafeSignInButton(props: ComponentProps<typeof SignInButton>) {
+  if (!clerkAvailable) return <button {...(props as any)}>{props.children || "Sign In"}</button>;
+  return <SignInButton {...props} />;
 }
 
-export function SafeSignInButton(props: ComponentProps<any>) {
-  return <SignInButtonInner {...props} />;
-}
-
-function SignUpButtonInner(props: ComponentProps<any>) {
-  try {
-    const { SignUpButton } = require("@clerk/nextjs");
-    return <SignUpButton {...props} />;
-  } catch {
-    return <button {...props}>{props.children || "Sign Up"}</button>;
-  }
-}
-
-export function SafeSignUpButton(props: ComponentProps<any>) {
-  return <SignUpButtonInner {...props} />;
+export function SafeSignUpButton(props: ComponentProps<typeof SignUpButton>) {
+  if (!clerkAvailable) return <button {...(props as any)}>{props.children || "Sign Up"}</button>;
+  return <SignUpButton {...props} />;
 }
