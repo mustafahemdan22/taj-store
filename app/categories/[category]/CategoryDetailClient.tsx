@@ -29,14 +29,14 @@ export default function CategoryDetailClient({
   const categoryName = useMemo(() => {
     return language === "ar" ? category.name : category.nameEn;
   }, [category.name, category.nameEn, language]);
-const heroUrl = useMemo(() => {
+  const heroUrl = useMemo(() => {
     // 1. لو المسار موجود في قاعدة البيانات، ابعته للدالة
     if (category?.heroImagePublicId) {
       return getOptimizedCloudinaryUrl(category.heroImagePublicId, 1200);
     }
     // 2. لو مفيش مسار، رجع أي صورة بديلة عندك في مجلد public
     // (تقدر تغير /placeholder.jpg لأي صورة موجودة عندك فعلاً)
-    return "/placeholder.jpg"; 
+    return "/placeholder.jpg";
   }, [category?.heroImagePublicId]);
   return (
     <div
@@ -48,31 +48,28 @@ const heroUrl = useMemo(() => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative h-[300px] md:h-[400px] w-full rounded-3xl overflow-hidden mb-12 shadow-2xl group bg-zinc-800"
+          className="relative h-[300px] md:h-[400px] w-full rounded-3xl overflow-hidden mb-12 shadow-2xl group"
         >
-          {/* The image was removed at your request */}
-          {/* <Image
+          <Image
             src={heroUrl as string}
             alt={categoryName}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
             priority
-          /> */}
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
           <div
-            className={`absolute bottom-0 ${
-              isRTL ? "right-0" : "left-0"
-            } p-8 md:p-12 w-full`}
+            className={`absolute bottom-0 ${isRTL ? "right-0" : "left-0"
+              } p-8 md:p-12 w-full`}
           >
             <Link
               href="/categories"
               className="inline-flex items-center text-sm font-semibold text-white/80 hover:text-white transition-colors mb-4 group/link"
             >
               <FiArrowLeft
-                className={`w-4 h-4 ${
-                  isRTL ? "ml-2 rotate-180" : "mr-2"
-                } group-hover/link:-translate-x-1 transition-transform`}
+                className={`w-4 h-4 ${isRTL ? "ml-2 rotate-180" : "mr-2"
+                  } group-hover/link:-translate-x-1 transition-transform`}
               />
               {language === "ar" ? "العودة للفئات" : "Back to Categories"}
             </Link>
