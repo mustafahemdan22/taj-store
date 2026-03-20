@@ -16,7 +16,7 @@ const FeaturesSection = () => {
       title: language === 'ar' ? 'مواد فاخرة' : 'Premium Materials',
       description: language === 'ar' 
         ? 'أرقى أنواع الكشمير والحرير والصوف من مصادر عالمية موثوقة' 
-        : 'The finest cashmere, silk, and wool sourced from trusted global origins'
+        : 'The finest silk, and wool sourced from trusted global origins'
     },
     {
       icon: FiHeart,

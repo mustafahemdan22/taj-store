@@ -191,7 +191,7 @@ const CategoriesPage = () => {
           >
             {language === "ar"
               ? "اكتشفي مجموعتنا الحصرية من الأوشحة الفاخرة المصنوعة يدوياً بأجود أنواع الكشمير والحرير والصوف الطبيعي، مصممة بعناية لتعكس أناقتك الفريدة في كل مناسبة."
-              : "Discover our exclusive collection of handcrafted luxury scarves made from the finest cashmere, silk, and natural wool, meticulously designed to reflect your unique elegance on every occasion."}
+              : "Discover our exclusive collection of handcrafted luxury scarves made from the finest silk, and natural wool, meticulously designed to reflect your unique elegance on every occasion."}
           </motion.p>
         </motion.section>
 
