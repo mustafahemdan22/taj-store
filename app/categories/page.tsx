@@ -148,10 +148,10 @@ const CategoriesPage = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentProducts = filteredProducts.slice(startIndex, endIndex);
 
-  const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  // const handlePageChange = useCallback((page: number) => {
+  //   setCurrentPage(page);
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // }, []);
 
   const handleCategoryChange = useCallback((categoryId: string) => {
     setSelectedCategory(categoryId);
