@@ -11,7 +11,7 @@ export default function SigninPage() {
       <div className="mb-8 text-center">
         <div className="flex justify-center mb-4">
           <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-2xl">🧣</span>
+            <span className="text-white font-bold text-2xl">Taj-Store</span>
           </div>
         </div>
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
