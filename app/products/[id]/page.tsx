@@ -464,7 +464,7 @@ const ProductDetailPage = () => {
                         <FiShoppingCart className="w-5 h-5 text-emerald-600" />
                       </div>
                       <div>
-                        <span className="text-lg font-bold text-emerald-900 dark:text-emerald-100">
+                        <span className="text-lg font-bold  bg-gradient-to-r from-zinc-800 to-zinc-900 text-white font-bold py-4 px-8 rounded-xl hover:from-zinc-900 hover:to-black transition-all duration-300 flex items-center justify-center gap-3 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed active:scale-95 shadow-2xl hover:shadow-3xl text-lg ">
                           {language === "ar" ? "في السلة:" : "In Cart:"}
                         </span>
                         <span className="text-2xl font-black text-emerald-600 ml-2">
