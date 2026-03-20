@@ -357,9 +357,9 @@ const ProductDetailPage = () => {
 
               {product.stock !== undefined && (
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  className={`px-3 py-1 text-lg font-semibold text-gray-900 dark:text-white mb-3 ${
                     product.stock > 0
-                      ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200"
+                      ? " 0 dark:text-gray-200"
                       : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200"
                   }`}
                 >
@@ -456,32 +456,32 @@ const ProductDetailPage = () => {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-5 rounded-2xl border-2 border-emerald-200/50 dark:border-emerald-800/50 shadow-lg"
+                  className=""
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center transition-all justify-between bg-gradient-to-r from-zinc-800 to-zinc-900 text-white font-bold py-4 px-8 rounded-xl hover:from-zinc-900 hover:to-black transition-all duration-300 flex items-center justify-center gap-3 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed active:scale-95 shadow-2xl hover:shadow-3xl text-lg ">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center">
-                        <FiShoppingCart className="w-5 h-5 text-emerald-600" />
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+                        <FiShoppingCart className="w-5 h-5 text-gray-400" />
                       </div>
                       <div>
-                        <span className="text-lg font-bold  bg-gradient-to-r from-zinc-800 to-zinc-900 text-white font-bold py-4 px-8 rounded-xl hover:from-zinc-900 hover:to-black transition-all duration-300 flex items-center justify-center gap-3 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed active:scale-95 shadow-2xl hover:shadow-3xl text-lg ">
+                        <span className="text-lg font-bold  ">
                           {language === "ar" ? "في السلة:" : "In Cart:"}
                         </span>
-                        <span className="text-2xl font-black text-emerald-600 ml-2">
+                        <span className="text-2xl font-black ml-2">
                           {currentQuantity}
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 transition-all">
                       <button
                         onClick={() => handleUpdateQuantity(currentQuantity - 1)}
-                        className="p-2 rounded-xl bg-emerald-200 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-300 dark:hover:bg-emerald-700 transition-all active:scale-95"
+                        className="p-2 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 transition-all active:scale-95"
                       >
                         <FiMinus className="w-5 h-5" />
                       </button>
                       <button
                         onClick={() => handleUpdateQuantity(currentQuantity + 1)}
-                        className="p-2 rounded-xl bg-emerald-200 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-300 dark:hover:bg-emerald-700 transition-all active:scale-95"
+                        className="p-2 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 transition-all active:scale-95"
                       >
                         <FiPlus className="w-5 h-5" />
                       </button>
