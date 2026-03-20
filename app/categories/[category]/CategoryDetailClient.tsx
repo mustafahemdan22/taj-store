@@ -48,15 +48,16 @@ const heroUrl = useMemo(() => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative h-[300px] md:h-[400px] w-full rounded-3xl overflow-hidden mb-12 shadow-2xl group"
+          className="relative h-[300px] md:h-[400px] w-full rounded-3xl overflow-hidden mb-12 shadow-2xl group bg-zinc-800"
         >
-          <Image
+          {/* The image was removed at your request */}
+          {/* <Image
             src={heroUrl as string}
             alt={categoryName}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
             priority
-          />
+          /> */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
           <div
