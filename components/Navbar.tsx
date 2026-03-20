@@ -59,10 +59,10 @@ const Navbar = () => {
     { href: '/categories', text: language === 'ar' ? ' الفئات' : 'Categories' },
   ];
 
-  const authItems = [
-    { href: '/sign-in', icon: FiLogIn, text: language === 'ar' ? 'تسجيل الدخول' : 'Login' },
-    { href: '/sign-up', icon: FiUserPlus, text: language === 'ar' ? 'إنشاء حساب' : 'Sign Up' },
-  ];
+  // const authItems = [
+  //   { href: '/sign-in', icon: FiLogIn, text: language === 'ar' ? 'تسجيل الدخول' : 'Login' },
+  //   { href: '/sign-up', icon: FiUserPlus, text: language === 'ar' ? 'إنشاء حساب' : 'Sign Up' },
+  // ];
 
   const renderCartLink = () => (
     <Link
@@ -138,7 +138,7 @@ const Navbar = () => {
                   <span>{item.text}</span>
                 </Link>
               ))}
-              {authItems.map(item => (
+              {/* {authItems.map(item => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -146,7 +146,7 @@ const Navbar = () => {
                 >
                   <span>{item.text}</span>
                 </Link>
-              ))  }
+              ))  } */}
               <SafeSignedIn>
                 <Link
                   href="/orders"
@@ -185,14 +185,14 @@ const Navbar = () => {
                 <SafeSignedOut>
                   <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <SafeSignInButton mode="modal">
-                      <button className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200">
+                      <Link href="/sign-in" className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200">
                         {language === 'ar' ? 'تسجيل الدخول' : 'Sign In'}
-                      </button>
+                      </Link>
                     </SafeSignInButton>
                     <SafeSignUpButton mode="modal">
-                      <button className="px-4 py-2 text-sm font-medium bg-zinc-800 text-white rounded-lg hover:bg-zinc-900 transition-all duration-200 shadow-sm border border-zinc-700">
+                      <Link href="/sign-up" className="px-4 py-2 text-sm font-medium bg-zinc-800 text-white rounded-lg hover:bg-zinc-900 transition-all duration-200 shadow-sm border border-zinc-700">
                         {language === 'ar' ? 'إنشاء حساب' : 'Sign Up'}
-                      </button>
+                      </Link>
                     </SafeSignUpButton>
                   </div>
                 </SafeSignedOut>
