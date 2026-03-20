@@ -26,10 +26,6 @@ const Footer = () => {
 
   const categories = [
     {
-      href: "/categories/cashmere",
-      text: language === "ar" ? "كشمير" : "Cashmere",
-    },
-    {
       href: "/categories/silk",
       text: language === "ar" ? "حرير" : "Silk",
     },

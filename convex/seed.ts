@@ -3,15 +3,6 @@ import { premiumProductData } from "./productData";
 
 const CATEGORIES = [
   {
-    slug: "cashmere",
-    name: "كشمير",
-    nameEn: "Cashmere",
-    heroImagePublicId: "taj-scarf/categories/cashmere/header",
-    description: "أرقى أنواع الكشمير للدفء والفخامة",
-    descriptionEn: "The finest cashmere for warmth and luxury",
-    sortOrder: 1,
-  },
-  {
     slug: "silk",
     name: "حرير",
     nameEn: "Silk",

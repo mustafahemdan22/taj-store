@@ -9,7 +9,6 @@ import { motion, Variants } from "framer-motion";
 
 // ✅ قاموس ترجمة الأقسام (عشان الموقع يكون احترافي باللغتين)
 const categoryTranslations: Record<string, { en: string; ar: string }> = {
-  cashmere: { en: "Cashmere", ar: "كشمير" },
   silk: { en: "Silk", ar: "حرير" },
   wool: { en: "Wool", ar: "صوف" },
   pashmina: { en: "Pashmina", ar: "باشمينا" },

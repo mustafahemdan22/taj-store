@@ -74,7 +74,6 @@ export const seedCategories = mutation({
 
 
     const categoriesToSeed = [
-      { slug: 'cashmere', name: 'كشمير', nameEn: 'Cashmere', heroImagePublicId: 'taj-scarf/categories/cashmere/header', sortOrder: 1 },
       { slug: 'silk', name: 'حرير', nameEn: 'Silk', heroImagePublicId: 'taj-scarf/categories/silk/header', sortOrder: 2 },
       { slug: 'wool', name: 'صوف', nameEn: 'Wool', heroImagePublicId: 'taj-scarf/categories/wool/header', sortOrder: 3 },
       { slug: 'pashmina', name: 'باشمينا', nameEn: 'Pashmina', heroImagePublicId: 'taj-scarf/categories/pashmina/header', sortOrder: 4 },

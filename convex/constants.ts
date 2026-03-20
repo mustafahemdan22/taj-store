@@ -1,5 +1,4 @@
 export const CATEGORIES = [
-  "cashmere",
   "silk",
   "wool",
   "pashmina",
@@ -10,7 +9,6 @@ export const CATEGORIES = [
 ];
 
 export const categoryHeroImages: Record<string, string> = {
-  cashmere: "taj-scarf/categories/cashmere/header",
   silk: "taj-scarf/categories/silk/header",
   wool: "taj-scarf/categories/wool/header",
   pashmina: "taj-scarf/categories/pashmina/header",

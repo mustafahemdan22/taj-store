@@ -63,11 +63,11 @@ function scanCodeForPublicIds(): Set<string> {
     try {
        // We know the seed data generates placeholders systematically. 
        // If you ever change the seed data structure, this logic needs to be updated.
-       const slugs = ['cashmere', 'silk', 'wool', 'pashmina', 'cotton', 'acrylic', 'infinity'];
+       const slugs = ['silk', 'wool', 'pashmina', 'cotton', 'acrylic', 'infinity'];
        slugs.forEach(slug => {
          validIds.add(`taj-scarf/categories/${slug}/header`);
          for(let i=1; i<=6; i++) {
-            validIds.add(`taj-scarf /categories/${slug}/products/${i}`);
+            validIds.add(`taj-scarf/categories/${slug}/products/${i}`);
          }
        });
        console.log(`✅ Loaded seed data placeholder logic from convex/productData.ts`);

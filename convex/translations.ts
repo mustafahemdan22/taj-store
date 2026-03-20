@@ -3,7 +3,6 @@ import { categoryHeroImages } from "./constants";
 
 
 export const categoryTranslations: Record<string, { ar: string; en: string; image: string }> = {
-    cashmere: { ar: 'كشمير', en: 'Cashmere', image: categoryHeroImages.cashmere || "categories/all/header" },
     silk: { ar: 'حرير', en: 'Silk', image: categoryHeroImages.silk || "categories/all/header" },
     wool: { ar: 'صوف', en: 'Wool', image: categoryHeroImages.wool || "categories/all/header" },
     pashmina: { ar: 'باشمينا', en: 'Pashmina', image: categoryHeroImages.pashmina || "categories/all/header" },

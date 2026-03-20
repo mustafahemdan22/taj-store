@@ -7,7 +7,6 @@ export type CategoryAssets = {
 };
 
 export const categoriesImages: Record<string, CategoryAssets> = {
-    cashmere: { header: "taj-scarf/categories/cashmere/header" },
     silk: { header: "taj-scarf/categories/silk/header" },
     wool: { header: "taj-scarf/categories/wool/header" },
     pashmina: { header: "taj-scarf/categories/pashmina/header" },

@@ -13,7 +13,6 @@ cloudinary.config({
 });
 
 const CATEGORIES = [
-  "cashmere",
   "silk",
   "wool",
   "pashmina",
