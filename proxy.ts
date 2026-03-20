@@ -7,7 +7,17 @@ export default clerkMiddleware(async (auth, req) => {
   if (isPublicRoute(req)) return;
 
   if (isAdminRoute(req)) {
-    await auth.protect((has) => has({ role: "admin" }));
+    const session = await auth();
+
+    const role = (session?.sessionClaims?.publicMetadata as any)?.role;
+
+    // لو مش مسجّل دخول أو مش admin → redirect
+    if (!session?.userId || role !== "admin") {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: "/" },
+      });
+    }
   }
 });
 

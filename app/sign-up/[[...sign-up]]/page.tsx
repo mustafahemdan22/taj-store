@@ -1,4 +1,5 @@
 // src/app/sign-up/[[...sign-up]]/page.tsx
+"use client"
 
 import { SignUp } from "@clerk/nextjs";
 import { useLanguage } from "../../../contexts/LanguageProvider"; // تأكد من عدد النقاط للرجوع للمجلد الصحيح
