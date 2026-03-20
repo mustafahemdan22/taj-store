@@ -70,6 +70,12 @@ export default mutation({
     for (const prod of allExistingProducts) {
       await ctx.db.delete(prod._id);
     }
+    
+    // Also wipe categories to clear out any removed 
+    const allExistingCategories = await ctx.db.query("categories").collect();
+    for (const cat of allExistingCategories) {
+      await ctx.db.delete(cat._id);
+    }
     // ===================================
 
     let categoriesInserted = 0;
