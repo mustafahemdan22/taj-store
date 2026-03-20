@@ -15,30 +15,18 @@ const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
 const clerkPubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 if (!convexUrl) {
-  if (typeof window !== "undefined") {
-    console.error("NEXT_PUBLIC_CONVEX_URL is not defined. Please check your environment variables.");
-  }
+  throw new Error("Missing NEXT_PUBLIC_CONVEX_URL");
 }
 
-const convex = new ConvexReactClient(
-  convexUrl || "https://merry-platypus-481.convex.cloud"    
-);
-
-function MaybeClerkProvider({ children }: { children: React.ReactNode }) {
-  if (!clerkPubKey) {
-    // Clerk key not available — render without auth (graceful degradation)
-    return <>{children}</>;
-  }
-  return (
-    <ClerkProvider publishableKey={clerkPubKey}>
-      {children}
-    </ClerkProvider>
-  );
+if (!clerkPubKey) {
+  throw new Error("Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY");
 }
+
+const convex = new ConvexReactClient(convexUrl);
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <MaybeClerkProvider>
+    <ClerkProvider publishableKey={clerkPubKey}>
       <ConvexProvider client={convex}>
         <Provider store={store}>
           <ThemeProvider>
@@ -55,6 +43,6 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
           </ThemeProvider>
         </Provider>
       </ConvexProvider>
-    </MaybeClerkProvider>
+    </ClerkProvider>
   );
-}
+}
