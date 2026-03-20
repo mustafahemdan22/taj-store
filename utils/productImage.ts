@@ -31,12 +31,10 @@ export function getOptimizedCloudinaryUrl(
   }
 
   const cleanId = publicId.startsWith("/") ? publicId.slice(1) : publicId;
-  
-  // Guard against convex seed dummy placeholder images causing 404 errors
   if (cleanId.includes("placeholder-") || cleanId.includes("OIP_")) {
-    return "";
+    return "../../public/header.jpg"; // صورة افتراضية موجودة في public
   }
-  
+
   return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_${width}/${cleanId}`;
 }
 

@@ -169,7 +169,7 @@ const Navbar = () => {
               </button>
               <Link href="/wishlist" className="relative p-2 rounded-full text-pink-700 ">
                 <FiHeart className="w-5 h-5" />
-                {isMounted && wishlist.length > 0 && <span className="absolute -top-1 -right-1  text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{wishlist.length}</span>}
+                {isMounted && wishlist.length > 0 && <span className="absolute -top-1 -right-1  dark:text-white text-red text-xs rounded-full h-5 w-5 flex items-center justify-center">{wishlist.length}</span>}
               </Link>
               {/* Cart */}
               {renderCartLink()}
