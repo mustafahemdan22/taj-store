@@ -10,7 +10,7 @@ export default function SigninPage() {
     <div className="min-h-[80vh] bg-[#EEEFF1] dark:bg-gray-900 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="mb-8 text-center">
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center">
+          <div className=" rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-2xl">Taj-Store</span>
           </div>
         </div>

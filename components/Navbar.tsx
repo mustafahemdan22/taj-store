@@ -185,12 +185,12 @@ const Navbar = () => {
                 <SafeSignedOut>
                   <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <SafeSignInButton mode="modal">
-                      <Link href="/sign-in" className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200">
+                      <Link href="" className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200">
                         {language === 'ar' ? 'تسجيل الدخول' : 'Sign In'}
                       </Link>
                     </SafeSignInButton>
                     <SafeSignUpButton mode="modal">
-                      <Link href="/sign-up" className="px-4 py-2 text-sm font-medium bg-zinc-800 text-white rounded-lg hover:bg-zinc-900 transition-all duration-200 shadow-sm border border-zinc-700">
+                      <Link href="" className="px-4 py-2 text-sm font-medium bg-zinc-800 text-white rounded-lg hover:bg-zinc-900 transition-all duration-200 shadow-sm border border-zinc-700">
                         {language === 'ar' ? 'إنشاء حساب' : 'Sign Up'}
                       </Link>
                     </SafeSignUpButton>
