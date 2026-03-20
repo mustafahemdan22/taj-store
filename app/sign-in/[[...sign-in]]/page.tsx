@@ -19,7 +19,7 @@ export default function SigninPage() {
         </h2>
       </div>
 
-      <SignIn routing="path" path="/sign-in" />
+      <SignIn />
     </div>
   );
 }

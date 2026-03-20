@@ -21,6 +21,6 @@ export default function SignupPage() {
       </div>
 
       {/* أزلنا routing="hash" ليعتمد على المسارات التي وضعتها في الـ env */}
-<SignUp routing="path" path="/sign-up" />    </div>
+<SignUp/>    </div>
   );
 }
