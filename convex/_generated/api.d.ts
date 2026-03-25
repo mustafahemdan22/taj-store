@@ -10,6 +10,7 @@
 
 import type * as constants from "../constants.js";
 import type * as functions_categories from "../functions/categories.js";
+import type * as functions_orders from "../functions/orders.js";
 import type * as functions_products from "../functions/products.js";
 import type * as productData from "../productData.js";
 import type * as seed from "../seed.js";
@@ -25,6 +26,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   constants: typeof constants;
   "functions/categories": typeof functions_categories;
+  "functions/orders": typeof functions_orders;
   "functions/products": typeof functions_products;
   productData: typeof productData;
   seed: typeof seed;

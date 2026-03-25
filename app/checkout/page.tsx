@@ -11,6 +11,8 @@ import { clearCart } from '../../store/cartSlice';
 import { FiCreditCard, FiMapPin, FiUser, FiArrowLeft, FiCheckCircle, FiShoppingCart } from 'react-icons/fi';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
 const CheckoutPage = () => {
   const router = useRouter();
@@ -19,6 +21,8 @@ const CheckoutPage = () => {
   const { addOrder } = useOrders();
   const { user, isLoaded, isSignedIn } = useSafeUser();
   const { language } = useLanguage();
+  
+  const createConvexOrder = useMutation(api.functions.orders.createOrder);
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState({
@@ -62,13 +66,47 @@ const CheckoutPage = () => {
       // Simulate payment processing
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Create order
+      // Create order in local context
       const orderItems = items.map(item => ({
         product: item.product,
         quantity: item.quantity,
         price: item.product.price * item.quantity
       }));
 
+      const orderNumber = `Taj Scarf-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
+
+      // Save to Convex backend
+      await createConvexOrder({
+        userId: user?.id || 'guest',
+        orderNumber: orderNumber,
+        items: items.map(item => ({
+          productId: item.product._id || item.product.id || 'unknown',
+          productName: item.product.name,
+          productDescription: item.product.description || '',
+          productCategory: item.product.category || 'Uncategorized',
+          quantity: item.quantity,
+          price: item.product.price * item.quantity,
+          unitPrice: item.product.price,
+        })),
+        total: total,
+        status: 'pending',
+        shippingAddress: {
+          street: formData.street,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode,
+          country: formData.country
+        },
+        customerInfo: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone
+        },
+        paymentMethod: formData.paymentMethod
+      });
+
+      // Save to local state (UI)
       addOrder({
         items: orderItems,
         total: total,
