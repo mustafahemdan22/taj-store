@@ -28,7 +28,6 @@ export default defineSchema({
     email: v.string(),
     phone: v.optional(v.string()),
     profileImage: v.optional(v.string()),
-    password: v.optional(v.string()), // لازم لو هتعمل login داخلي
   })
     .index("by_clerkId", ["clerkId"])
     .index("by_email", ["email"]),
